@@ -6,7 +6,7 @@
 #include <sys/errno.h>
 #include <sys/time.h>
 #include <sys/signal.h>
-#include <stdarg.h>
+#include <kernel_sigaction.h>
 #include <stdio.h>
 
 _syscall1_base(void, _exit, 0, int, status)
@@ -16,7 +16,7 @@ _syscall0_base(int, fork, 3)
 _syscall2_base(int, fstat, 4, int, file, struct stat *, st)
 _syscall0_base(int, getpid, 5)
 _syscall1_base(int, isatty, 6, int, file)
-_syscall2_base(int, kill, 7, pid_t, pid, int, sig)
+_syscall3_base(int, r_kill, 7, int64_t, pid, int64_t, tid, int, sig)
 _syscall2_base(int, link, 8, char *, old, char *, new)
 _syscall3_base(int, lseek, 9, int, file, int, ptr, int, dir)
 _syscall3_base(int, r_open, 10, const char *, name, int, flags, int, mode)
@@ -27,18 +27,7 @@ _syscall1_base(clock_t, times, 14, struct tms *, buf)
 _syscall1_base(int, unlink, 15, char *, name)
 _syscall1_base(int, wait, 16, int *, wstatus)
 _syscall3_base(int, write, 17, int, file, char *, ptr, int, len)
-_syscall2_base(_sig_func_ptr, signal, 18, int, signum, _sig_func_ptr, handler)
+_syscall3_base(int, r_sigaction, 18, int, signum, const struct __kernel_signal_action *, act, struct __kernel_signal_action *, oldact)
 _syscall2_base(int, gettimeofday, 19, struct timeval *, p, void *, z)
 _syscall2_base(int, gethostname, 20, char *, name, size_t, len)
-
-int open (const char *name, int flags, ...) {
-	va_list list;
-
-	va_start(list, flags);
-
-	int ret = r_open(name, flags, va_arg(list, int));
-
-	va_end(list);
-
-	return ret;
-}
+_syscall0_base(int, sigreturn, 21)
