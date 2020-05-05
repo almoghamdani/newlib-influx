@@ -1,13 +1,14 @@
-#include <syscall.h>
-#include <sys/stat.h>
-#include <sys/types.h>
-#include <sys/fcntl.h>
-#include <sys/times.h>
-#include <sys/errno.h>
-#include <sys/time.h>
-#include <sys/signal.h>
 #include <kernel_sigaction.h>
 #include <stdio.h>
+#include <sys/dirent.h>
+#include <sys/errno.h>
+#include <sys/fcntl.h>
+#include <sys/signal.h>
+#include <sys/stat.h>
+#include <sys/time.h>
+#include <sys/times.h>
+#include <sys/types.h>
+#include <syscall.h>
 
 _syscall1_base(void, _exit, 0, int, status)
 _syscall1_base(int, close, 1, int, file)
@@ -31,3 +32,5 @@ _syscall3_base(int, r_sigaction, 18, int, signum, const struct __kernel_signal_a
 _syscall2_base(int, gettimeofday, 19, struct timeval *, p, void *, z)
 _syscall2_base(int, gethostname, 20, char *, name, size_t, len)
 _syscall0_base(int, sigreturn, 21)
+_syscall1_base(unsigned int, sleep, 22, unsigned int, seconds)
+_syscall3_base(int, getdents, 23, int, fd, struct dirent *, dirp, unsigned int, count)

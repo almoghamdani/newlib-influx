@@ -217,6 +217,8 @@ int sigqueue(pid_t, int, const union sigval);
 
 #endif /* __POSIX_VISIBLE >= 199309 */
 
+#define NSIG 32
+
 #define SIGHUP 1       /* hangup */
 #define SIGINT 2       /* interrupt */
 #define SIGQUIT 3      /* quit */

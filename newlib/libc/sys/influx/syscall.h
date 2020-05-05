@@ -39,30 +39,35 @@
     type name(void) {                                                \
         uint64_t __res;                                              \
         __inline_syscall0(num, __res) __syscall_return(type, __res); \
-    }
+    }                                                                \
+    type _ ## name(void) __attribute__((alias(#name)));
 
 #define _syscall1_base(type, name, num, type1, arg1)                       \
     type name(type1 arg1) {                                                \
         uint64_t __res;                                                    \
         __inline_syscall1(num, __res, arg1) __syscall_return(type, __res); \
-    }
+    }                                                                      \
+    type _ ## name(type1 arg1) __attribute__((alias(#name)));
 
 #define _syscall2_base(type, name, num, type1, arg1, type2, arg2)                \
     type name(type1 arg1, type2 arg2) {                                          \
         uint64_t __res;                                                          \
         __inline_syscall2(num, __res, arg1, arg2) __syscall_return(type, __res); \
-    }
+    }                                                                            \
+    type _ ## name(type1 arg1, type2 arg2) __attribute__((alias(#name)));
 
 #define _syscall3_base(type, name, num, type1, arg1, type2, arg2, type3, arg3)         \
     type name(type1 arg1, type2 arg2, type3 arg3) {                                    \
         uint64_t __res;                                                                \
         __inline_syscall3(num, __res, arg1, arg2, arg3) __syscall_return(type, __res); \
-    }
+    }                                                                                  \
+    type _ ## name(type1 arg1, type2 arg2, type3 arg3) __attribute__((alias(#name)));
 
 #define _syscall4_base(type, name, num, type1, arg1, type2, arg2, type3, arg3, type4, arg4)  \
     type name(type1 arg1, type2 arg2, type3 arg3, type4 arg4) {                              \
         uint64_t __res;                                                                      \
         __inline_syscall4(num, __res, arg1, arg2, arg3, arg4) __syscall_return(type, __res); \
-    }
+    }                                                                                        \
+    type _ ## name(type1 arg1, type2 arg2, type3 arg3, type4 arg4) __attribute__((alias(#name)));
 
 #endif

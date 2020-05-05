@@ -628,6 +628,7 @@ case "${host}" in
 	;;
   *-*-influx)
 	sys_dir=influx
+	posix_dir=posix
 	newlib_cflags="${newlib_cflags} -DSIGNAL_PROVIDED"
 	;;
 esac
