@@ -53,7 +53,8 @@ ARFLAGS = cru
 lib_a_AR = $(AR) $(ARFLAGS)
 am__objects_1 = lib_a-syscalls.$(OBJEXT) lib_a-crt0.$(OBJEXT) \
 	lib_a-open.$(OBJEXT) lib_a-sigaction.$(OBJEXT) \
-	lib_a-signal.$(OBJEXT) lib_a-kill.$(OBJEXT)
+	lib_a-signal.$(OBJEXT) lib_a-kill.$(OBJEXT) \
+	lib_a-wait.$(OBJEXT)
 am_lib_a_OBJECTS = $(am__objects_1)
 lib_a_OBJECTS = $(am_lib_a_OBJECTS)
 DEFAULT_INCLUDES = -I.@am__isrc@
@@ -172,8 +173,8 @@ top_srcdir = @top_srcdir@
 AUTOMAKE_OPTIONS = cygnus
 INCLUDES = $(NEWLIB_CFLAGS) $(CROSS_CFLAGS) $(TARGET_CFLAGS)
 AM_CCASFLAGS = $(INCLUDES)
-INFLUX_LIBA_SOURCES = syscalls.c crt0.c open.c sigaction.c signal.c kill.c
-INFLUX_LIBA_OBJS = syscalls.o open.o sigaction.o signal.o kill.o
+INFLUX_LIBA_SOURCES = syscalls.c crt0.c open.c sigaction.c signal.c kill.c wait.c
+INFLUX_LIBA_OBJS = syscalls.o open.o sigaction.o signal.o kill.o wait.o
 noinst_LIBRARIES = lib.a
 lib_a_SOURCES = $(INFLUX_LIBA_SOURCES)
 lib_a_LIBADD = $(INFLUX_LIBA_OBJS)
@@ -275,6 +276,12 @@ lib_a-kill.o: kill.c
 
 lib_a-kill.obj: kill.c
 	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(lib_a_CFLAGS) $(CFLAGS) -c -o lib_a-kill.obj `if test -f 'kill.c'; then $(CYGPATH_W) 'kill.c'; else $(CYGPATH_W) '$(srcdir)/kill.c'; fi`
+
+lib_a-wait.o: wait.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(lib_a_CFLAGS) $(CFLAGS) -c -o lib_a-wait.o `test -f 'wait.c' || echo '$(srcdir)/'`wait.c
+
+lib_a-wait.obj: wait.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(lib_a_CFLAGS) $(CFLAGS) -c -o lib_a-wait.obj `if test -f 'wait.c'; then $(CYGPATH_W) 'wait.c'; else $(CYGPATH_W) '$(srcdir)/wait.c'; fi`
 
 ID: $(HEADERS) $(SOURCES) $(LISP) $(TAGS_FILES)
 	list='$(SOURCES) $(HEADERS) $(LISP) $(TAGS_FILES)'; \
