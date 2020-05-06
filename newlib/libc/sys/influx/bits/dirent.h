@@ -4,6 +4,7 @@
 #include <stdint.h>
 
 #define MAXNAMELEN 256
+#define MAXPATHLEN 2048
 
 typedef struct dirent {
     uint64_t d_ino;          /* 64-bit inode number */
